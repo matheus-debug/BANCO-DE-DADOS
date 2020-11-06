@@ -185,3 +185,38 @@ from tb_grade_aluno a inner join tb_aluno      b on (a.id_aluno = b.id)
 where a.ano = 2020
   and a.semestre = 1
 group by b.nome;
+
+
+
+
+/*CRIAÇÃO DE VIEW SERVE PARA FAZER UM SELECT DETELHADO PORÉM MAIS CURTO*/
+ create view vw_professor_disciplina_notas
+ as
+ select c.nome as professor
+      ,b.nome as disciplina
+      ,a.p1
+      ,a.p2
+      
+from tb_grade_aluno a inner join tb_disciplina b on (a.id_disciplina = b.id)
+                      inner join tb_professor  c on (b.id_professor = c.id);
+                      
+ 
+select*from vw_professor_disciplina_notas;
+
+
+
+select c.nome as professor
+      ,b.nome as disciplina
+      ,a.p1
+      ,a.p2
+      
+from tb_grade_aluno a inner join tb_disciplina b on (a.id_disciplina = b.id)
+                      inner join tb_professor  c on (b.id_professor = c.id);
+                      
+/* essa parte do código serviria se eu quisessse procurar uma nota em especifico
+where a.p1 = 10
+  and a.p2 = 10
+  and a.ano = 2020
+  and a.semestre = 1;
+  */
+/*EXIBIR QUANTIDADE DE DISCIPLINAS ALOCADAS PARA CADA PROFESSOR*/
