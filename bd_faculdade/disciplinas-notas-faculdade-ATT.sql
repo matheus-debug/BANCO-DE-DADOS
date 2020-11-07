@@ -233,3 +233,5 @@ select*from vw_professor_disciplina_notas;
 select professor
 	  ,disciplina
 from vw_professor_disciplina_notas
+
+

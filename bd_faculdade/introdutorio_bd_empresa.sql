@@ -155,4 +155,26 @@ SET telefone = 2.2
 WHERE id_cliente = 1;
 /*=========================================*/
 
+/*CRIANDO VIEW PARA LER ID, NOME E TELFONE DO CLIENTE*/
 
+create view vw_tb_cliente
+as
+select id_cliente
+		,nome
+        ,telefone
+        ,email
+    
+from tb_cliente;
+
+select*from vw_tb_cliente;
+
+/*CONSULTANDO APENAS NOME E TELEFONE*/
+select nome
+		,telefone
+from vw_tb_cliente;
+
+/*CONSULTANDO APENAS NOME E E-MAIL*/
+
+select	nome
+		,email
+from vw_tb_cliente;

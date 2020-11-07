@@ -3,26 +3,35 @@ use db_cilada;
 
 create table prd_departamento(
 	id int auto_increment primary key not null
+    ,nome	varchar(45)
 );
+
 
 create table prd_produto_similar(
 	id int auto_increment primary key not null
+	,nome	varchar(45)
+
 );
 
 create table prd_marca(
 	id int auto_increment primary key not null
+	,nome	varchar(45)
+
 );
 
 create table prd_categoria(
 	id int auto_increment primary key not null,
-    id_departamento int,
-    foreign key (id_departamento) references prd_departamento(id)
+    id_departamento int
+	,nome	varchar(45)
+    ,foreign key (id_departamento) references prd_departamento(id)
 );
 
 create table prd_subcategoria(
 	id int auto_increment primary key not null,
     id_categoria int,
     foreign key (id_categoria) references prd_categoria(id)
+	,nome	varchar(45)
+
 );
 
 create table prd_unidade_medida(
@@ -57,6 +66,16 @@ create table prd_produto(
     qtd_min int,
     cod_barra int
 );
+
+select*from prd_departamento
+select*from prd_categoria
+
+select	b.id
+		,b.nome
+		,a.nome
+from prd_categoria a inner join prd_departamento b on (a.id_departamento = b.id)
+where id_departamento = 2
+
 
 #FUNÇÃO PROCEDURE PARA ADICIONAR, MODIFICAR E DELETAR DEPARTAMENTOS
 DELIMITER $$
