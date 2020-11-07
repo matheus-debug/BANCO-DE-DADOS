@@ -159,14 +159,20 @@ where ((a.p1+a.p2)/2) > 8.5
 
 /*EXIBIR NOME DO PROFESSOR, DISCIPLINA E NOME DOS ALUNOS QUE TIVERAM MEDIA IGUAL A 10 EM 202*/
 
-select c.nome
-      ,b.nome
+select c.nome as professor
+      ,b.nome as disciplina
+      ,a.p1
+      ,a.p2
+      
 from tb_grade_aluno a inner join tb_disciplina b on (a.id_disciplina = b.id)
-                      inner join tb_professor  c on (b.id_professor = c.id)
+                      inner join tb_professor  c on (b.id_professor = c.id);
+                      
+/* essa parte do código serviria se eu quisessse procurar uma nota em especifico
 where a.p1 = 10
   and a.p2 = 10
   and a.ano = 2020
   and a.semestre = 1;
+  */
   
 /*EXIBIR QUANTIDADE DE DISCIPLINAS ALOCADAS PARA CADA PROFESSOR*/
 
@@ -186,10 +192,29 @@ where a.ano = 2020
   and a.semestre = 1
 group by b.nome;
 
+/*CRIAÇÃO DE VIEW PARA EXIBIR QUANTIDADE DE DISCIPLINA E ALUNO*/
+
+create view vw_aluno_qtd_disciplina
+as
+
+select b.nome
+      ,count(c.nome)
+from tb_grade_aluno a inner join tb_aluno      b on (a.id_aluno = b.id)
+                      inner join tb_disciplina c on (a.id_disciplina = c.id)
+where a.ano = 2020
+  and a.semestre = 1
+group by b.nome;
+
+select*from vw_aluno_qtd_disciplina;
+
+/*BUSCANDO APENAS O NOME DOS ALUNOS*/
+select nome 
+from vw_aluno_qtd_disciplina;
+
+/*FIM VIEW*/
 
 
-
-/*CRIAÇÃO DE VIEW SERVE PARA FAZER UM SELECT DETELHADO PORÉM MAIS CURTO*/
+/*CRIAÇÃO DE VIEW  PARA EXIBIR NOME DO PROFESSOR, DISCIPLINA E NOTAS*/
  create view vw_professor_disciplina_notas
  as
  select c.nome as professor
@@ -203,20 +228,8 @@ from tb_grade_aluno a inner join tb_disciplina b on (a.id_disciplina = b.id)
  
 select*from vw_professor_disciplina_notas;
 
-
-
-select c.nome as professor
-      ,b.nome as disciplina
-      ,a.p1
-      ,a.p2
-      
-from tb_grade_aluno a inner join tb_disciplina b on (a.id_disciplina = b.id)
-                      inner join tb_professor  c on (b.id_professor = c.id);
-                      
-/* essa parte do código serviria se eu quisessse procurar uma nota em especifico
-where a.p1 = 10
-  and a.p2 = 10
-  and a.ano = 2020
-  and a.semestre = 1;
-  */
 /*EXIBIR QUANTIDADE DE DISCIPLINAS ALOCADAS PARA CADA PROFESSOR*/
+
+select professor
+	  ,disciplina
+from vw_professor_disciplina_notas
