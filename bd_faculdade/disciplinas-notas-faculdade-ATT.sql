@@ -235,3 +235,4 @@ select professor
 from vw_professor_disciplina_notas
 
 
+show tables
