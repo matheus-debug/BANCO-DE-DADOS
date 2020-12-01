@@ -90,11 +90,11 @@ values ('Banco de Dados', 80, 'Ementa...', 2, 2)
         ,('Programação Orientada a Objetos', 40, 'Ementa...', 2,3);
 
 insert into tb_grade_aluno (ano, semestre, p1, p2, id_aluno, id_disciplina)
-values (2020, 1, null, null, 4, 5)
-		,(2020, 1, null, null, 4, 2)
-        ,(2020, 1, null, null, 4, 4)
-        ,(2020, 1, null, null, 2, 1)
-        ,(2020, 1, null, null, 2, 3)
+values (2020, 1, 10, 10, 1, 8)
+		,(2020, 1, 10, 5, 3, 7)
+        ,(2020, 1, 8.5, 6, 4, 6)
+        ,(2020, 1, 4, 9, 2, 6)
+        ,(2020, 1, null, null, 1, 3)
         ,(2020, 1, null, null, 2, 4)
         ,(2020, 1, null, null, 5, 5)
         ,(2020, 1, null, null, 5, 4)
@@ -143,36 +143,39 @@ group by b.id
 		,b.nome;
         
 /*EXIBIR ALUNOS DE UMA DISCIPLINA ORDENADO PELO NOME*/
-
-select b.nome
+select 	b.ra,
+		b.nome,
+        b.id
+		
 from tb_grade_aluno a inner join tb_aluno b on (a.id_aluno = b.id)
 where a.id_disciplina = 4
 order by b.nome;
 
 /*EXIBIR TODOS OS ALUNOS COM MEDIA SUPERIOR A 8,5 EM 2020*/
+select*from tb_grade_aluno;
 
-select b.nome
+select	b.nome,
+		b.id
 from tb_grade_aluno a inner join tb_aluno b on (a.id_aluno = b.id)
-where ((a.p1+a.p2)/2) > 8.5
+where ((a.p1+a.p2)/2) < 8.5
   and a.ano = 2020
   and a.semestre = 1;
 
 /*EXIBIR NOME DO PROFESSOR, DISCIPLINA E NOME DOS ALUNOS QUE TIVERAM MEDIA IGUAL A 10 EM 202*/
-
 select c.nome as professor
       ,b.nome as disciplina
+      ,d.nome as aluno
       ,a.p1
       ,a.p2
       
 from tb_grade_aluno a inner join tb_disciplina b on (a.id_disciplina = b.id)
-                      inner join tb_professor  c on (b.id_professor = c.id);
-                      
-/* essa parte do código serviria se eu quisessse procurar uma nota em especifico
+                      inner join tb_professor  c on (b.id_professor = c.id)
+                      inner join tb_aluno d on (a.id_aluno = d.id)
 where a.p1 = 10
-  and a.p2 = 10
+  and a.p2 = 10	
   and a.ano = 2020
   and a.semestre = 1;
-  */
+
   
 /*EXIBIR QUANTIDADE DE DISCIPLINAS ALOCADAS PARA CADA PROFESSOR*/
 
