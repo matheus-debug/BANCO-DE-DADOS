@@ -96,6 +96,9 @@ insert into tb_consulta (horario, agenda, id_paciente, id_medico) values
 	,('9:10', '2020/11/5', 4, 2)
 	,('7:50', '2020/11/5', 6, 3)
 	,('10:30', '2020/11/5', 5, 2);
+update tb_consulta
+set agenda = '2020/11/12'
+where id = 2;
 
 /*REALIZANDO CONSULTAS*/
 
@@ -149,3 +152,18 @@ select b.nome
 		,count(a.id)
 from tb_consulta a inner join tb_medico b on (a.id_medico = b.id)
 where b.id = 8 and MONTH(agenda) = 11;
+
+/*EXIBIR CONSULTAS DE UMA DETERMINADA SEMANA DO MES*/
+select  b.nome
+        ,c.nome
+from tb_consulta a inner join tb_paciente b on (a.id_paciente = b.id)
+				   inner join tb_medico c on (a.id_medico = c.id)
+Where (FLOOR((DAYOFMONTH(agenda) - 1) / 7) + 1) = 2; /*FUNÇÃO PARA CALCULAR A SEMANA DE UM DETERMINADO MES*/
+
+/*EXIBIR TODOS OS PACIENTES ACIMA DE UMA DETERMINADA IDADE*/
+select	b.nome
+		,b.idade
+        ,c.nome
+from tb_consulta a inner join tb_paciente b on (a.id_paciente = b.id)
+				inner join tb_medico c on (a.id_medico = c.id)
+where b.idade > 40;
